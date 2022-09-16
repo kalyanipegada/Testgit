@@ -1,0 +1,128 @@
+package Directorysite;
+
+import java.time.Duration;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Addlistings 
+{
+
+	public static void main(String[] args)
+	{
+		WebDriverManager.chromedriver().setup();
+	    ChromeOptions opt=new ChromeOptions();
+	    opt.addArguments("--disable-notifications");
+	    ChromeDriver driver= new ChromeDriver(opt);
+		driver.get("https://patients.staging.innogrp.com");
+		//Define wait object
+		FluentWait<ChromeDriver> w=new FluentWait<ChromeDriver>(driver);
+		w.withTimeout(Duration.ofSeconds(40));
+		w.pollingEvery(Duration.ofMillis(1000));
+		
+		w.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='Provider Directory ']"))).click();
+		
+		w.until(ExpectedConditions.elementToBeClickable(By.linkText("Submit a New Listing"))).click();
+		
+		
+		//Scenario for login
+		w.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='login']"))).click();
+		try
+		{
+			
+		w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='log']"))).sendKeys("testuser1.70@Example.com");
+		w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='pwd']"))).sendKeys("Password1!");
+		//w.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='rememberme']"))).click();
+		w.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='wp-submit']"))).click();
+		}
+		catch(Exception exe)
+		{
+		System.out.println(exe.getMessage());
+		
+		}
+	
+		/*driver.findElement(By.linkText(" Recover Password")).click();
+		
+		//code to Recover password
+		driver.findElement(By.xpath("//input[@name='user_login']")).sendKeys("ABC.mail@Example.com");
+		driver.findElement(By.xpath("//button[@id='submit']")).click();
+		
+		//Scenario for sign up
+		driver.findElement(By.linkText("Sign Up")).click();
+		driver.findElement(By.id("username")).sendKeys("abc");
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("");
+		driver.findElement(By.id("password")).sendKeys("abc");
+		
+		driver.findElement(By.xpath("(//label[@class='directorist-checkbox__label'])[1]")).click();
+		driver.findElement(By.xpath("(//label[@class='directorist-checkbox__label'])[2]")).click();
+		
+		driver.findElement(By.xpath("//button[@name='atbdp_user_submit']")).click();
+		
+		}*/
+	   //Submit new listing
+		driver.manage().window().maximize();
+		 Actions a =new Actions(driver);
+		 WebElement comm=w.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Community")));
+		 a.moveToElement(comm).perform();
+		 WebElement pd=w.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Provider Directory")));
+		 JavascriptExecutor js = (JavascriptExecutor)driver;
+		 js.executeScript("arguments[0].click();",pd);
+		 
+		 w.until(ExpectedConditions.elementToBeClickable(By.linkText("Submit a New Listing"))).click();
+		 
+		 
+		
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@class='directorist-form-element'])[1]"))).sendKeys("tester");
+	   
+	    driver.switchTo().frame("listing_content_ifr");
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//body[@data-id='listing_content']"))).sendKeys("testing");
+	    driver.switchTo().defaultContent();
+	    
+	    WebElement e= w.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@name='tax_input[at_biz_dir-location][]']")));
+	    Select s=new Select(e);
+	    s.selectByVisibleText("Alabama");
+	    
+		WebElement e1= w.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@name='admin_category_select[]']")));
+	    Select s1=new Select(e1);
+	    s1.selectByVisibleText("Anesthesiology");
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='directorist-form-element directorist-location-js pac-target-input']")))
+	    .sendKeys("3-45,abc");
+	   w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='OK']"))).click();
+	   w.until(ExpectedConditions.visibilityOfElementLocated(By.name("zip"))).sendKeys("509870");
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='email']")))
+	    .sendKeys("testuser1.70@Example.com");
+	    
+	    w.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='privacy_policy']"))).click();
+	    
+	    w.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Save & Preview' "))).click();
+	    
+
+	}
+	    
+}    
+	    
+	    
+		   
+	   
+	   
+       
+
+
+
+		
+
+	
+
+	
+
+

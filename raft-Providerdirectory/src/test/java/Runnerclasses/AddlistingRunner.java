@@ -1,0 +1,60 @@
+package Runnerclasses;
+
+import java.time.Duration;
+
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.Addlisting;
+/*Scenario for add listing in provider directory without login*/
+
+public class AddlistingRunner 
+{
+
+	public static void main(String[] args)throws Exception 
+	{
+		//Open browser
+		WebDriverManager.chromedriver().setup();
+		RemoteWebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		 ChromeOptions opt=new ChromeOptions();
+		opt.addArguments("--disable-notifications");
+		    //Launch Site
+		driver.get("https://patients.staging.innogrp.com");
+		FluentWait<RemoteWebDriver> w=new FluentWait<RemoteWebDriver>(driver);
+		w.withTimeout(Duration.ofSeconds(40));
+		w.pollingEvery(Duration.ofMillis(1000));
+		//Create object to page class
+		Addlisting obj=new Addlisting(driver,w);
+		obj.clickdir();
+		obj.clicksubmit();
+		obj.clickLogin();
+		obj.fillUsername("testuser1.00@Example.com");
+		obj.fillPassword("Password1!");
+	
+		obj.clicklogin();
+		obj.moveMouse();
+		obj.clickpd();
+		obj.clicklisting();
+		obj.fillName("tester");
+		obj.fillDescription("testing");
+		obj.selectlocationOptions();
+		obj.selectAreaoptions();
+		//obj.disblenotification();
+		obj.fillAddress("3-45,abc");
+		obj.clickOK();
+		obj. fillPostCode("505647");
+		obj.fillemail("testuser1.00@Example.com");
+		obj.selectCheckbox();
+		obj.clickSave();
+		obj.clickcontinue();
+	}
+
+}
+
+

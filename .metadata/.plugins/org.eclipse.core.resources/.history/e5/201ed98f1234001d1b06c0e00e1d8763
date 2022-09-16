@@ -1,0 +1,230 @@
+package pages;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+
+public class RegwithoutSigninpage 
+{
+	private RemoteWebDriver driver;
+	private FluentWait<RemoteWebDriver>wait;
+	private Actions act;
+
+	@FindBy(how=How.LINK_TEXT,using="Upcoming Events")
+    private WebElement UE;
+	
+	@FindBy(how=How.LINK_TEXT,using="Events Schedule")
+    private WebElement ES;
+	
+    @FindBy(how=How.XPATH,using="//a[@title='Registration Event-1']")
+    private WebElement event;
+    
+    @FindBy(how=How.XPATH,using="//button[@title='Increase ticket quantity for New ticket']")
+    private WebElement ticket;
+    
+    @FindBy(how=How.XPATH,using="//button[text()='Get Tickets']")
+    private WebElement getticket;
+    
+    @FindBy(how=How.XPATH,using="//input[@id='tribe-tickets_168567_first-name_1']")
+    private WebElement Firstname;
+    
+    @FindBy(how=How.XPATH,using="//input[@id='tribe-tickets_168567_last-name_1']")
+    private WebElement Lastname;
+    
+    @FindBy(how=How.XPATH,using="//input[@id='tribe-tickets_168567_email_1']")
+    private WebElement Email;
+
+    @FindBy(how=How.XPATH,using="//select[@id='tribe-tickets_168567_credential_1']")
+    private WebElement cred;
+    
+    @FindBy(how=How.ID,using="tribe-tickets_168567_printed-syllabus_1_a6105c0a611b41b08f1209506350279e")
+    private WebElement click1;
+    
+    @FindBy(how=How.XPATH,using="//input[@value='In Person']")
+    private WebElement click2;
+    
+    @FindBy(how=How.XPATH,using="//button[@name='checkout-button']")
+    private WebElement checkout;
+    
+    @FindBy(how=How.NAME,using="billing_first_name")
+    private WebElement BillingFN;
+    
+    @FindBy(how=How.NAME,using="billing_last_name")
+    private WebElement BillingLN;
+    
+    @FindBy(how=How.XPATH,using="//select[@name='billing_country']")
+    private WebElement country;
+    
+    @FindBy(how=How.XPATH,using="//input[@name='billing_address_1']")
+    private WebElement address;
+    
+    @FindBy(how=How.XPATH,using="//input[@name='billing_city']")
+    private WebElement city;
+    
+    @FindBy(how=How.XPATH,using="//select[@name='billing_state']")
+    private WebElement State;
+    
+    @FindBy(how=How.NAME,using="billing_postcode")
+    private WebElement POSTCODE;
+    
+    @FindBy(how=How.NAME,using="billing_phone")
+    private WebElement phone;
+    
+    @FindBy(how=How.NAME,using="account_username")
+    private WebElement username ;
+    
+    @FindBy(how=How.NAME,using="account_password")
+    private WebElement password2;
+    
+    @FindBy(how=How.XPATH,using="//input[contains(@name,'authnet-card-number')]")
+    private WebElement cardnumber;
+    
+    @FindBy(how=How.XPATH,using="//input[@id='authnet-card-expiry']")
+    private WebElement ED;
+	
+    @FindBy(how=How.XPATH,using="//input[@name='authnet-card-cvc']")
+    private WebElement cvc;
+    
+    @FindBy(how=How.XPATH,using="//button[text()='Place order']")
+    private WebElement placeorder;
+    
+    public RegwithoutSigninpage(RemoteWebDriver driver, FluentWait<RemoteWebDriver> wait)
+    {
+    	    			PageFactory.initElements(driver, this);
+    			this.driver=driver;
+    			this.wait=wait;
+    			act=new Actions(driver);
+    }
+    
+    public void clickonUE()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(UE));
+    	act.moveToElement(UE).perform();	
+  
+	}
+    public void clickonES()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(ES));
+    	JavascriptExecutor js = (JavascriptExecutor)driver;
+   	    js.executeScript("arguments[0].click();",ES);
+  
+	}
+    public void clickEvent()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(event)).click();
+    }
+    public void clickonTicket()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(ticket)).click();
+    }
+    public void clickongetTicket()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(getticket)).click();
+    }
+    public void fillFirstname(String fn)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(Firstname)).sendKeys(fn);
+    }
+    public void fillLastname(String ln)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(Lastname)).sendKeys(ln);
+    }
+    public void fillemail(String em)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(Email)).sendKeys(em);
+    }
+    public void fillcred(String c)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(cred)).sendKeys(c);
+    }
+    public void Click1()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(click1)).click();
+    }
+    public void Click2()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(click2)).click();
+    }
+    public void checkout()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(checkout)).click();
+    }
+    public void fillbfirstname(String bfn)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(BillingFN)).sendKeys(bfn);
+    }
+    public void fillBlastname(String bln)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(BillingLN)).sendKeys(bln);
+    }
+    public void selectcountry()
+    {
+    	wait.until(ExpectedConditions.visibilityOf(country));
+    	Select s=new Select(country);
+        s.selectByVisibleText("India");
+    }
+    public void filladdress(String add)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(address)).sendKeys(add);
+    }
+    public void fillcity(String c)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(city)).sendKeys(c);
+    }
+    public void selectState()
+    
+    {
+    	wait.until(ExpectedConditions.visibilityOf(State));
+    	Select s=new Select(State);
+        s.selectByValue("TS");
+    }
+    public void fillpostcode(String pc)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(POSTCODE)).sendKeys(pc);
+    }
+    public void fillphone(String p)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(phone)).sendKeys(p);
+    }
+    public void fillusername(String un)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(username)).sendKeys(un);
+    }
+    public void fillpassword1(String pwd)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(password2)).sendKeys(pwd);
+    }
+    public void fillcardnumber(String cn)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(cardnumber)).sendKeys(cn);
+    }
+    public void fillED(String E)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(ED)).sendKeys(E);
+    }
+    public void fillcvc(String cv)
+    {
+    	wait.until(ExpectedConditions.visibilityOf(cvc)).sendKeys(cv);
+    }
+    public void clickonorder()
+    {
+    	wait.until(ExpectedConditions.elementToBeClickable(placeorder)).click();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+}

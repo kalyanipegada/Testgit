@@ -1,0 +1,122 @@
+package Registartionflow;
+
+import java.time.Duration;
+
+import java.util.concurrent.TimeUnit;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+/*
+ * This method is used to perform login into application without registration
+ */
+
+public class RegflowwithoutSignin 
+{
+
+	public static void main(String[] args) 
+	{
+	WebDriverManager.chromedriver().setup();
+	ChromeDriver driver=new ChromeDriver();
+	driver.get("https://members.staging.innogrp.com");
+	
+	FluentWait<ChromeDriver> w=new FluentWait<ChromeDriver>(driver);
+	w.withTimeout(Duration.ofSeconds(40));
+	w.pollingEvery(Duration.ofMillis(1000));
+	
+	driver.manage().window().maximize();
+	 Actions a =new Actions(driver);
+	 WebElement Ue=w.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Upcoming Events")));
+	 a.moveToElement(Ue).perform();
+	 WebElement Es=w.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Events Schedule")));
+	 JavascriptExecutor js = (JavascriptExecutor)driver;
+	 js.executeScript("arguments[0].click();",Es);
+	 w.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='Registration Event-1']"))).click();
+	 
+	 w.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Increase ticket quantity for New ticket']"))).click();
+	 
+	 w.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Get Tickets']"))).click();
+	 
+	 
+	 
+	  w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='tribe-tickets_168567_first-name_1']"))).sendKeys("test4572.0");
+      w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='tribe-tickets_168567_last-name_1']"))).sendKeys("user");
+	  w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='tribe-tickets_168567_email_1']")))
+	 .sendKeys("testuser4572.0@Example.com");
+	 WebElement e= w.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@id='tribe-tickets_168567_credential_1']")));
+	 Select s=new Select(e);
+	 s.selectByVisibleText("DO");
+	 
+	 w.until(ExpectedConditions.elementToBeClickable(By.id("tribe-tickets_168567_printed-syllabus_1_a6105c0a611b41b08f1209506350279e")))
+	 .click();
+
+	 //w.until(ExpectedConditions.elementToBeClickable(By.id("tribe-tickets_168567_printed-syllabus_1_7fa3b767c460b54a2be4d49030b349c7"))).click();
+	 
+	 w.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='In Person']")))
+	 .click();
+	 
+	 //w.until(ExpectedConditions.elementToBeClickable(By.id("//input[@value='Virtual / Live Stream']"))).click();
+	 
+	 //code for click on save and view cart
+	/* w.until(ExpectedConditions.elementToBeClickable(By.id("//button[@name='cart-button']"))).click();
+	 w.until(ExpectedConditions.elementToBeClickable(By.id("//div[@class='wc-proceed-to-checkout']/child::a"))).click();*/
+	 //code for click on checkout button
+	 w.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@name='checkout-button']"))).click();
+	 try
+	 {
+	
+	 w.until(ExpectedConditions.visibilityOfElementLocated(By.name("billing_first_name"))).sendKeys("test2");
+	 w.until(ExpectedConditions.visibilityOfElementLocated(By.name("billing_last_name"))).sendKeys("user");
+	 WebElement e1=w.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@name='billing_country']")));
+        Select s1=new Select(e1);
+	    s1.selectByVisibleText("India");
+	   
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='billing_address_1']"))).sendKeys("3-56,abc");
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='billing_city']"))).sendKeys("knr");
+	    WebElement e2=w.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@name='billing_state']")));
+        Select s2=new Select(e2);
+	    s2.selectByValue("TS");
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.name("billing_postcode"))).sendKeys("505236");
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.name("billing_phone"))).sendKeys("9753723643");
+	    
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.name("account_username"))).sendKeys("kalyani_s23");
+	    
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.name("account_password"))).sendKeys("Password1!");
+	    //code for credit card method
+	    JavascriptExecutor jse= (JavascriptExecutor)driver;
+	    WebElement element= driver.findElement(By.xpath("//input[contains(@name,'authnet-card-number')]"));
+	    jse.executeScript("arguments[0].value='"+ "4111111111111111" +"';", element);
+	    
+	    WebElement element1 =w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='authnet-card-expiry']")));
+	    jse.executeScript("arguments[0].value='"+ "03/45" +"';", element1);
+	    
+	    w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='authnet-card-cvc']"))).sendKeys("321");
+	   WebElement order= w.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Place order']")));
+	   JavascriptExecutor jsb = (JavascriptExecutor)driver;
+		 jsb.executeScript("arguments[0].click();",order);
+        //code for pay pall method
+	    /*w.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='payment_method_paypal']"))).click();
+	    w.until(ExpectedConditions.elementToBeClickable(By.name("//button[text()='Proceed to PayPal']"))).click();*/
+	 }
+	    catch(Exception ex)
+	    {
+	    System.out.println("message is" +ex);	
+	    }
+	 
+	 
+	 
+	 
+	}
+}
+	
+	    
+	

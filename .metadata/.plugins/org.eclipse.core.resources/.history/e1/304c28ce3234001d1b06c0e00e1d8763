@@ -1,0 +1,191 @@
+package pages;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+
+import io.cucumber.core.backend.Options;
+
+public class Addlisting 
+{
+	private RemoteWebDriver driver;
+	private FluentWait<RemoteWebDriver>w;
+	private Actions act;
+	//private ChromeOptions opt;
+	 
+	
+	//Element locators
+	@FindBy(how=How.XPATH,using="//li[@id='nav-menu-item-16217']/descendant::a")
+    private WebElement dr;
+	
+	@FindBy(how=How.XPATH,using="(//a[@class='btn-alt'])[1]")
+    private WebElement SubList;
+	
+	@FindBy(how=How.XPATH,using="//a[text()='login']")
+    private WebElement login;
+	
+	@FindBy(how=How.XPATH,using="//input[@name='log']")
+    private WebElement username;
+	
+	@FindBy(how=How.XPATH,using="//input[@name='pwd']")
+    private WebElement password;
+	
+	@FindBy(how=How.XPATH,using="//input[@id='wp-submit']")
+    private WebElement Clicklogin;
+	
+    @FindBy(how=How.LINK_TEXT,using="Community")
+    private WebElement comm;
+   
+    @FindBy(how=How.LINK_TEXT,using="Provider Directory")
+    private WebElement directory;
+    
+    @FindBy(how=How.LINK_TEXT,using="Submit a New Listing")
+    private WebElement listing;
+    
+    @FindBy(how=How.XPATH,using="(//input[@class='directorist-form-element'])[1]")
+    private WebElement name;
+    
+    @FindBy(how=How.XPATH,using="//*[@data-id='listing_content']")
+    private WebElement description;
+    
+    @FindBy(how=How.XPATH,using="//select[@name='tax_input[at_biz_dir-location][]']")
+    private WebElement location;
+    
+    @FindBy(how=How.XPATH,using="//select[@name='admin_category_select[]']")
+    private WebElement specialty;
+    
+    @FindBy(how=How.XPATH,using="//input[@class='directorist-form-element directorist-location-js pac-target-input']")
+    private WebElement address;
+    
+    @FindBy(how=How.XPATH,using="//button[text()='OK']")
+    private WebElement OK;
+    
+    @FindBy(how=How.NAME,using="zip")
+    private WebElement zip;
+    
+    @FindBy(how=How.XPATH,using="//input[@type='email']")
+    private WebElement email;
+    
+    @FindBy(how=How.XPATH,using="//label[@for='privacy_policy']")
+    private WebElement checkbox;
+    
+    @FindBy(how=How.XPATH,using="//button[text()='Save & Preview']")
+    private WebElement savebutton;
+    
+    public Addlisting(RemoteWebDriver driver, FluentWait<RemoteWebDriver> w)
+    {
+    	    			PageFactory.initElements(driver, this);
+    			this.driver=driver;
+    			this.w=w;
+    			act=new Actions(driver);
+    			//driver=new ChromeDriver(opt);
+  
+    }
+ 
+    public void clickdir()
+    {
+    	w.until(ExpectedConditions.elementToBeClickable(dr)).click();
+    }
+    public void clicksubmit()
+    {
+    	w.until(ExpectedConditions.elementToBeClickable(SubList)).click();
+    }
+    public void clickLogin()
+    {
+    	w.until(ExpectedConditions.elementToBeClickable(login)).click();
+    }
+    public void fillUsername(String UN)
+    {
+    	w.until(ExpectedConditions.visibilityOf(username)).sendKeys(UN);
+    }
+    public void fillPassword(String PW)
+    {
+    	w.until(ExpectedConditions.visibilityOf(password)).sendKeys(PW);
+    }
+   
+    
+    public void clicklogin()
+    {
+    	w.until(ExpectedConditions.elementToBeClickable(Clicklogin)).click();
+    }
+    public void moveMouse()
+    {
+    	w.until(ExpectedConditions.visibilityOf(comm));
+        act.moveToElement(comm).perform();	
+    }
+    public void clickpd()
+    {
+    	w.until(ExpectedConditions.elementToBeClickable(directory)).click();
+    }
+    public void clicklisting()
+    { 
+    	w.until(ExpectedConditions.elementToBeClickable(listing)).click();
+    }
+    public void fillName(String value)
+    {
+    w.until(ExpectedConditions.visibilityOf(name)).sendKeys(value);
+    }
+    public void fillDescription(String des)
+    {
+    	w.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("listing_content_ifr"));
+    	w.until(ExpectedConditions.visibilityOf(description)).sendKeys(des);
+    	driver.switchTo().defaultContent();
+    }
+    public void selectlocationOptions()
+    {
+    w.until(ExpectedConditions.visibilityOf(location));
+    Select s=new Select(location);
+    s.selectByVisibleText("Alabama");
+    }
+    public void selectAreaoptions()
+    {
+    w.until(ExpectedConditions.visibilityOf(specialty));
+    Select s=new Select(specialty);
+    s.selectByVisibleText("Anesthesiology");
+     }
+    /*public void disblenotification()
+    {
+    	opt.addArguments("--disable-notifications");
+    }*/
+    
+    
+    public void fillAddress(String add)
+    {
+    	
+    	w.until(ExpectedConditions.visibilityOf(address)).sendKeys(add);	
+    }
+    public void clickOK()
+    {
+    	w.until(ExpectedConditions.elementToBeClickable(OK)).click();
+    	
+    }
+    public void fillPostCode(String postcode)
+    {
+    	w.until(ExpectedConditions.visibilityOf(zip)).sendKeys(postcode);	
+    }
+    public void fillemail(String Email)
+    {
+    	w.until(ExpectedConditions.visibilityOf(email)).sendKeys(Email);
+	}
+
+    public void selectCheckbox()
+    {
+	w.until(ExpectedConditions.elementToBeClickable(checkbox)).click();
+	
+    }
+    public void clickSave()
+    {
+	w.until(ExpectedConditions.elementToBeClickable(savebutton)).click();
+	
+    }
+}

@@ -1,0 +1,36 @@
+package Runnerclasses;
+
+import java.time.Duration;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class RegflowWithoutSigninRunner
+{
+
+	public static void main(String[] args)throws Exception
+	{
+		//Open browser and launch site
+				WebDriverManager.chromedriver().setup();
+				RemoteWebDriver driver=new ChromeDriver();
+				driver.manage().window().maximize();
+				 driver.get("https://members.staging.innogrp.com");
+				FluentWait<RemoteWebDriver> wait=new FluentWait<RemoteWebDriver>(driver);
+				wait.withTimeout(Duration.ofSeconds(40));
+				wait.pollingEvery(Duration.ofMillis(1000));
+		//Call methods from page class
+				RegflowWithoutSigninRunner obj1=new RegflowWithoutSigninRunner(driver,wait);
+				obj1.clickonUE();
+				obj1.clickonES();
+				obj1.clickEvent();
+				obj1.clickonTicket();
+				obj1.clickongetTicket();
+			    obj1.
+
+	}
+
+}

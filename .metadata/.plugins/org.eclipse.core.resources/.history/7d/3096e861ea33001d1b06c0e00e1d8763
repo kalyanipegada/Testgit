@@ -1,0 +1,63 @@
+package Runnerclasses;
+
+import java.time.Duration;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.RegwithoutSigninpage;
+
+public class RegWithoutSigninRunner
+{
+
+	public static void main(String[] args)throws Exception
+	{
+		//Open browser and launch site
+				WebDriverManager.chromedriver().setup();
+				RemoteWebDriver driver=new ChromeDriver();
+				driver.manage().window().maximize();
+				 driver.get("https://members.staging.innogrp.com");
+				FluentWait<RemoteWebDriver> wait=new FluentWait<RemoteWebDriver>(driver);
+				wait.withTimeout(Duration.ofSeconds(40));
+				wait.pollingEvery(Duration.ofMillis(1000));
+		//Call methods from page class
+				RegwithoutSigninpage obj1=new RegwithoutSigninpage(driver ,wait);
+				obj1.clickonUE();
+				obj1.clickonES();
+				obj1.clickEvent();
+				obj1.clickonTicket();
+				obj1.clickongetTicket();
+			    obj1.fillFirstname("test1.02277");
+			    obj1.fillLastname("user");
+			    obj1.fillemail("testuser1.02277");
+			    obj1.fillcred("OD");
+			    obj1. Click1();
+			    obj1.Click2();
+			    obj1.checkout();
+			    obj1.fillbfirstname("test1");
+			    obj1.fillBlastname("user");
+			    obj1.selectcountry();
+			    obj1.filladdress("3-23,acb");
+			    obj1.fillcity("knr");
+			    obj1. selectstate();
+			    obj1.fillpostcode("505345");
+			    obj1.fillphone("9870087692");
+			    obj1.fillusername("kalyani_18");
+			    obj1.fillpassword("Password1!");
+			    obj1.fillcardnumber("4111111111111111");
+			    obj1.fillED("03/24");
+			    obj1.fillcvc("145");
+			    obj1.clickorder();
+			    
+			    
+			    
+	}		    
+			    
+			    
+
+	}
+
+
